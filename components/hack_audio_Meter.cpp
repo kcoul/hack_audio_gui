@@ -369,7 +369,7 @@ void HackAudio::Meter::timerCallback()
             out = (1.0f - g) * in + g * last;
 
         }
-        else if (meterCalibration == RMS)
+        else /*if (meterCalibration == RMS)*/
         {
 
             in   = (*meterSources[i]) * (*meterSources[i]);

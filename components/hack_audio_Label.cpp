@@ -252,7 +252,7 @@ void HackAudio::Label::mouseDown(const juce::MouseEvent& e)
     if ((placeholderStatus && getText().isNotEmpty()) || highlightStatus)
     {
 
-        backgroundInterpolation.setValue(1.0f);
+        backgroundInterpolation.setTargetValue(1.0f);
         startTimer(backgroundAnimation, 1000.0f / (float)ANIMATION_FPS);
 
     }
@@ -292,7 +292,7 @@ void HackAudio::Label::labelTextChanged(juce::Label* labelThatHasChanged)
     {
 
         timeout = 75;
-        colourInterpolation.setValue(1.0f);
+        colourInterpolation.setTargetValue(1.0f);
         startTimer(foregroundAnimation, 1000.0f / (float)ANIMATION_FPS);
 
     }
@@ -313,7 +313,7 @@ void HackAudio::Label::timerCallback(int timerID)
             if (std::abs(colourInterpolation.getTargetValue() - colourInterpolation.getNextValue()) < 0.0001)
             {
 
-                colourInterpolation.setValue(colourInterpolation.getTargetValue());
+                colourInterpolation.setTargetValue(colourInterpolation.getTargetValue());
 
             }
 
@@ -324,7 +324,7 @@ void HackAudio::Label::timerCallback(int timerID)
             if (colourInterpolation.getTargetValue() == 1.0f)
             {
 
-                colourInterpolation.setValue(0.0f);
+                colourInterpolation.setTargetValue(0.0f);
 
             }
             else
@@ -360,7 +360,7 @@ void HackAudio::Label::timerCallback(int timerID)
             if (std::abs(backgroundInterpolation.getTargetValue() - backgroundInterpolation.getNextValue()) < 0.0001)
             {
 
-                backgroundInterpolation.setValue(backgroundInterpolation.getTargetValue());
+                backgroundInterpolation.setTargetValue(backgroundInterpolation.getTargetValue());
 
             }
 
@@ -371,13 +371,13 @@ void HackAudio::Label::timerCallback(int timerID)
             if (backgroundInterpolation.getTargetValue() == 1.0f && !juce::Component::isMouseButtonDownAnywhere())
             {
 
-                backgroundInterpolation.setValue(0.0f);
+                backgroundInterpolation.setTargetValue(0.0f);
 
             }
             else if (backgroundInterpolation.getTargetValue() == 1.0f)
             {
 
-                backgroundInterpolation.setValue(1.0f);
+                backgroundInterpolation.setTargetValue(1.0f);
 
             }
             else
@@ -386,7 +386,7 @@ void HackAudio::Label::timerCallback(int timerID)
                 if (backgroundInterpolation.getNextValue() == 0.0f)
                 {
 
-                    backgroundInterpolation.setValue(0.0f);
+                    backgroundInterpolation.setTargetValue(0.0f);
                     stopTimer(backgroundAnimation);
 
                 }

@@ -1174,7 +1174,9 @@ void HackAudio::Diagram::paintOverChildren(juce::Graphics& g)
                     y2 = destination->getY() + destination->getHeight() / 2;
 
                 }
-                else if (sourceX > destinationX)
+                //TODO: What if sourceX == destinationX ?
+                //This is now covered below, but is it what we want?
+                else /*if (sourceX > destinationX)*/
                 {
 
                     x1 = source->getX();

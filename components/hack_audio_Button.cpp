@@ -130,7 +130,7 @@ void HackAudio::Button::mouseDown(const juce::MouseEvent& e)
 
     if (!isEnabled()) { return; }
 
-    colourInterpolation.setValue(1.0f);
+    colourInterpolation.setTargetValue(1.0f);
 
     if (buttonStyle == ButtonStyle::Bar)
     {
@@ -387,7 +387,7 @@ void HackAudio::Button::timerCallback()
 
             if (std::abs(colourInterpolation.getTargetValue() - colourInterpolation.getNextValue()) < 0.0001)
             {
-                colourInterpolation.setValue(colourInterpolation.getTargetValue());
+                colourInterpolation.setTargetValue(colourInterpolation.getTargetValue());
             }
 
         }
@@ -396,13 +396,13 @@ void HackAudio::Button::timerCallback()
             if (colourInterpolation.getTargetValue() == 1.0f && !juce::Component::isMouseButtonDownAnywhere())
             {
 
-                colourInterpolation.setValue(0.0f);
+                colourInterpolation.setTargetValue(0.0f);
 
             }
             else if (colourInterpolation.getTargetValue() == 1.0f)
             {
 
-                colourInterpolation.setValue(1.0f);
+                colourInterpolation.setTargetValue(1.0f);
 
             }
             else
@@ -411,7 +411,7 @@ void HackAudio::Button::timerCallback()
                 if (colourInterpolation.getNextValue() == 0.0f)
                 {
 
-                    colourInterpolation.setValue(0.0f);
+                    colourInterpolation.setTargetValue(0.0f);
                     stopTimer();
 
                 }

@@ -248,7 +248,7 @@ void HackAudio::Selector::removeListener(Listener* listener)
 void HackAudio::Selector::indexChanged()
 {
 
-    colourInterpolation.setValue(1.0f);
+    colourInterpolation.setTargetValue(1.0f);
     startTimerHz(ANIMATION_FPS);
     listeners.call(&HackAudio::Selector::Listener::selectorIndexChanged, this, currentIndex);
 
@@ -396,7 +396,7 @@ void HackAudio::Selector::timerCallback()
         if (std::abs(colourInterpolation.getTargetValue() - colourInterpolation.getNextValue()) < 0.0001)
         {
 
-            colourInterpolation.setValue(colourInterpolation.getTargetValue());
+            colourInterpolation.setTargetValue(colourInterpolation.getTargetValue());
 
         }
 
@@ -407,7 +407,7 @@ void HackAudio::Selector::timerCallback()
         if (colourInterpolation.getTargetValue() == 1.0f)
         {
 
-            colourInterpolation.setValue(0.0f);
+            colourInterpolation.setTargetValue(0.0f);
             
         }
         else
