@@ -76,7 +76,7 @@ void HackAudio::FlexBox::addComponent(juce::Component& component, int customOrde
 void HackAudio::FlexBox::removeComponent(juce::Component& component)
 {
     
-    juce::FlexItem* fi = getItem(component);
+    const juce::FlexItem* fi = getItem(component);
     flexbox.items.remove(fi);
     applyLayout();
 
@@ -184,13 +184,13 @@ juce::Array<juce::FlexItem> HackAudio::FlexBox::getItems() const
 
 }
 
-juce::FlexItem* HackAudio::FlexBox::getItem(juce::Component& component) const
+const juce::FlexItem* HackAudio::FlexBox::getItem(juce::Component& component) const
 {
 
     for (int i = 0; i < flexbox.items.size(); ++i)
     {
 
-        juce::FlexItem& fi = flexbox.items.getReference(i);
+        const juce::FlexItem& fi = flexbox.items.getReference(i);
 
         if (fi.associatedComponent == &component)
         {
@@ -227,13 +227,14 @@ juce::FlexItem* HackAudio::FlexBox::getItem(juce::FlexBox& flexbox) const
 void HackAudio::FlexBox::setItem(juce::Component& component, juce::FlexItem newFlexProperties)
 {
 
-    juce::FlexItem* fi = getItem(component);
+    const juce::FlexItem* fi = getItem(component);
 
     newFlexProperties.associatedComponent = &component;
     newFlexProperties.width  = component.getWidth();
     newFlexProperties.height = component.getHeight();
 
-    *fi = newFlexProperties;
+    juce::FlexItem* fi_noConst = const_cast<juce::FlexItem*>(fi);
+    *fi_noConst = newFlexProperties;
 
 }
 
@@ -251,8 +252,8 @@ void HackAudio::FlexBox::setItem(juce::FlexBox& flexbox, juce::FlexItem newFlexP
 void HackAudio::FlexBox::setItemFlex(juce::Component &component, float newFlexGrow)
 {
 
-    juce::FlexItem* fi = getItem(component);
-    fi->flexGrow   = newFlexGrow;
+    const juce::FlexItem* fi = getItem(component);
+    const_cast<juce::FlexItem*>(fi)->flexGrow   = newFlexGrow;
     applyLayout();
 
 }
@@ -260,9 +261,9 @@ void HackAudio::FlexBox::setItemFlex(juce::Component &component, float newFlexGr
 void HackAudio::FlexBox::setItemFlex(juce::Component &component, float newFlexGrow, float newFlexShrink)
 {
 
-    juce::FlexItem* fi = getItem(component);
-    fi->flexGrow   = newFlexGrow;
-    fi->flexShrink = newFlexShrink;
+    const juce::FlexItem* fi = getItem(component);
+    const_cast<juce::FlexItem*>(fi)->flexGrow   = newFlexGrow;
+    const_cast<juce::FlexItem*>(fi)->flexShrink = newFlexShrink;
     applyLayout();
     
 }
@@ -270,10 +271,10 @@ void HackAudio::FlexBox::setItemFlex(juce::Component &component, float newFlexGr
 void HackAudio::FlexBox::setItemFlex(juce::Component &component, float newFlexGrow, float newFlexShrink, float newFlexBasis)
 {
 
-    juce::FlexItem* fi = getItem(component);
-    fi->flexGrow   = newFlexGrow;
-    fi->flexShrink = newFlexShrink;
-    fi->flexBasis  = newFlexBasis;
+    const juce::FlexItem* fi = getItem(component);
+    const_cast<juce::FlexItem*>(fi)->flexGrow   = newFlexGrow;
+    const_cast<juce::FlexItem*>(fi)->flexShrink = newFlexShrink;
+    const_cast<juce::FlexItem*>(fi)->flexBasis  = newFlexBasis;
     applyLayout();
     
 }
@@ -311,8 +312,8 @@ void HackAudio::FlexBox::setItemFlex(juce::FlexBox& flexbox, float newFlexGrow, 
 void HackAudio::FlexBox::setItemWidth(juce::Component &component, float newWidth)
 {
 
-    juce::FlexItem* fi = getItem(component);
-    fi->width = newWidth;
+    const juce::FlexItem* fi = getItem(component);
+    const_cast<juce::FlexItem*>(fi)->width = newWidth;
     applyLayout();
 
 }
@@ -329,8 +330,8 @@ void HackAudio::FlexBox::setItemWidth(juce::FlexBox &flexbox, float newWidth)
 void HackAudio::FlexBox::setItemHeight(juce::Component& component, float newHeight)
 {
 
-    juce::FlexItem* fi = getItem(component);
-    fi->height = newHeight;
+    const juce::FlexItem* fi = getItem(component);
+    const_cast<juce::FlexItem*>(fi)->height = newHeight;
     applyLayout();
 
 }
@@ -347,8 +348,8 @@ void HackAudio::FlexBox::setItemHeight(juce::FlexBox &flexbox, float newHeight)
 void HackAudio::FlexBox::setItemMargin(juce::Component &component, juce::FlexItem::Margin newMargin)
 {
 
-    juce::FlexItem* fi = getItem(component);
-    fi->margin = newMargin;
+    const juce::FlexItem* fi = getItem(component);
+    const_cast<juce::FlexItem*>(fi)->margin = newMargin;
     applyLayout();
 
 }
@@ -520,7 +521,7 @@ void HackAudio::FlexBox::componentMovedOrResized(juce::Component& component, boo
     if (component.getWidth() == 0 || component.getHeight() == 0)
     {
 
-        juce::FlexItem* fi = getItem(component);
+        const juce::FlexItem* fi = getItem(component);
 
         component.getProperties().set(juce::Identifier("flexIndexCache"), juce::var(fi->order));
 
@@ -548,10 +549,10 @@ void HackAudio::FlexBox::componentMovedOrResized(juce::Component& component, boo
         else
         {
 
-            juce::FlexItem* fi = getItem(component);
+            const juce::FlexItem* fi = getItem(component);
 
-            fi->width  = component.getWidth();
-            fi->height = component.getHeight();
+            const_cast<juce::FlexItem*>(fi)->width  = (float)component.getWidth();
+            const_cast<juce::FlexItem*>(fi)->height = (float)component.getHeight();
 
         }
     }
@@ -583,7 +584,7 @@ void HackAudio::FlexBox::componentVisibilityChanged(juce::Component& component)
     else
     {
 
-        juce::FlexItem* fi = getItem(component);
+        const juce::FlexItem* fi = getItem(component);
 
         component.getProperties().set(juce::Identifier("flexIndexCache"), juce::var(fi->order));
         component.getProperties().set(juce::Identifier("flexWidthCache"), juce::var(component.getWidth()));

@@ -129,7 +129,7 @@ public:
      
      @param component   a component controlled by the FlexBox
     */
-    juce::FlexItem* getItem(juce::Component& component) const;
+    const juce::FlexItem* getItem(juce::Component& component) const;
 
     /**
      Returns the FlexItem associated with the given FlexBox
