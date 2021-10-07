@@ -37,10 +37,10 @@
 #define ANIMATION_FPS 60
 
 #define CORNER_RADIUS   24
-#define CORNER_CONFIG   CORNER_RADIUS, CORNER_RADIUS, false, true, true, false
+#define CORNER_CONFIG   CORNER_RADIUS, CORNER_RADIUS, false, false, false, false
 
-#define ROTARY_ANGLESTART ((7.0f * juce::float_Pi) / 6.0f)
-#define ROTARY_ANGLERANGE ((5.0f * juce::float_Pi) / 3.0f)
+#define ROTARY_ANGLESTART ((7.0f * juce::MathConstants<float>::pi) / 6.0f)
+#define ROTARY_ANGLERANGE ((5.0f * juce::MathConstants<float>::pi) / 3.0f)
 
 #define DEFAULT_PIPMIN 6
 #define DEFAULT_PIPMAX 8
