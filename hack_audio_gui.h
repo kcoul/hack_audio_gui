@@ -59,7 +59,7 @@ END_JUCE_MODULE_DECLARATION
 
 #include "layout/hack_audio_Diagram.h"
 #include "layout/hack_audio_Viewport.h"
-#include "layout/hack_audio_FlexBox.h"
+//#include "layout/hack_audio_FlexBox.h"
 
 #include "diagrams/hack_audio_Diagrams.h"
 
